@@ -1,5 +1,5 @@
 #include "virtual_alloc.h"
-
+#include "virtual_sbrk.h"
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     // Your code here
