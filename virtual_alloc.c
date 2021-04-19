@@ -15,7 +15,8 @@ struct node{
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
     int position = virtual_sbrk(0) - heapstart;
-    virtual_sbrk((sizeof(struct node)*(2^(initial_size - min_size + 1) - 1)) + 2^initial_size - position);
+    int max_num_of_nodes = 2^(initial_size - min_size + 1);
+    virtual_sbrk(sizeof(struct node)*max_num_of_nodes + 2^(initial_size) - position);
 
 }
 
