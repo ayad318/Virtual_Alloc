@@ -1,8 +1,22 @@
 #include "virtual_alloc.h"
 #include "virtual_sbrk.h"
 
+enum STATE {FREE , SPLIT, ALLOCATED};
+//data structure will be in form of binary tree
+struct node{
+    
+    void *mem_block;
+    int size;
+    struct node *parent;
+    struct node *left;
+    struct node *right;
+};
+
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
-    // Your code here
+    
+    int position = virtual_sbrk(0) - heapstart;
+    virtual_sbrk((sizeof(struct node)*(2^(initial_size - min_size + 1) - 1)) + 2^initial_size - position);
+
 }
 
 void * virtual_malloc(void * heapstart, uint32_t size) {
