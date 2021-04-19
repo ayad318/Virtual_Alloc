@@ -1,6 +1,8 @@
 #include "virtual_alloc.h"
 #include "virtual_sbrk.h"
 
+#include <math.h>
+
 void * virtual_heap = NULL;
 
 void * virtual_sbrk(int32_t increment) {
