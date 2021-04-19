@@ -3,6 +3,7 @@
 
 
 #include <math.h>
+#include <stdio.h>
 
 enum STATE {FREE , SPLIT, ALLOCATED};
 
