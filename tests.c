@@ -1,7 +1,6 @@
 #include "virtual_alloc.h"
 #include "virtual_sbrk.h"
 
-#include <math.h>
 
 void * virtual_heap = NULL;
 
