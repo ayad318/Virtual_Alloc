@@ -37,10 +37,11 @@ int state(struct node *nd){
 
 //logarithmic base 2
 int log_two(int x) {
-    if(x%2 == 0){
-        return (log(x) / log(2));
-    } 
-    return log(x) / log(2); 
+    int result = log(x) / log(2); 
+    if(result%1 == 0){
+        return result -=1;
+    }
+    return result;
 } 
 
 //node size function
