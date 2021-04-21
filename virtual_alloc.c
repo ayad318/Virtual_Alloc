@@ -110,7 +110,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((2^(initial_size - min_size + 1)) - 1);
-    virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position - 800);
+    virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
 
     struct node* block = (struct node*) heapstart;
     block->state = FREE;
@@ -179,9 +179,9 @@ void virtual_info(void * heapstart) {
     int index = block->index;
     if(block->state == SPLIT){
         //left node
-        virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
+        virtual_info(heapstart + (2*index + 1));
         //right node
-        virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
+        virtual_info(heapstart + (2*index + 2));
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
@@ -200,5 +200,9 @@ void virtual_info(void * heapstart) {
     }
     if(block->state == ALLOCATED){
         printf("allocated %d\n",block->size);
+        //left node
+        virtual_info(heapstart + (2*index + 1));
+        //right node
+        virtual_info(heapstart + (2*index + 2));
     }
 }
