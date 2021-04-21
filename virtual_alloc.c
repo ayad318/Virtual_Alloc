@@ -193,7 +193,7 @@ void virtual_info(void * heapstart) {
 
     if(block->state == NONE){
         printf("none %d\n",block->size);
-
+    }
     if(block->state == ALLOCATED){
         printf("allocated %d\n",block->size);
     }
