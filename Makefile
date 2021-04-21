@@ -13,3 +13,6 @@ virtual_alloc.o: virtual_alloc.c
 clean:
 	rm -f $(TARGET)
 	rm -f *.o
+
+run_tests:
+	$(CC) $(CC) $(CFLAGS) $^ -o $@
