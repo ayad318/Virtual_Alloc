@@ -168,8 +168,8 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     
     for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
         struct node* nd = (struct node*) heapstart + i;
-        if(nd->size == best_fit_size){
-            if(nd->state == FREE){
+        if(nd->state == FREE){
+            if(nd->size == best_fit_size){
                 nd->state = ALLOCATED;
                 return nd->mem_block;
             }
