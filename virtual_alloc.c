@@ -165,8 +165,10 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     //best_fit_size has a minimum value for alocation
     if(best_fit_size < root->min_size)
         best_fit_size = root->min_size;
-    
-    for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
+    printf("%d  %d   %d\n",best_fit_size,root->size,root->min_size);
+
+
+    /*for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
         struct node* nd = (struct node*) heapstart + i;
         if(nd->state == FREE){
             if(nd->size == best_fit_size){
@@ -174,7 +176,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
                 return nd->mem_block;
             }
         }
-    }
+    }*/
     return NULL;
 }
 
