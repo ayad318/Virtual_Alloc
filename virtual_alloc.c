@@ -113,7 +113,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
 
     struct node* block = (struct node*) heapstart;
-    block->state = FREE;
+    block->state = SPLIT;
 
     block->mem_block = heapstart + sizeof(struct node)*max_num_of_nodes;
     block->size = pow(2,initial_size);
@@ -123,6 +123,10 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     block->parent = NULL;
     block->left = (struct node*) heapstart + 2*block->index + 1;
     block->right = (struct node*) heapstart + 2*block->index + 2;
+    block->left->size = block->size/2;
+    block->right->size = block->size/2;
+    block->left->state = FREE;
+    block->right->state = ALLOCATED;
 
     //create child for every node except leafs
     /*for(int i = 0; i < ((2^(initial_size - min_size )) - 1); i ++){
