@@ -197,5 +197,4 @@ void virtual_info(void * heapstart) {
     virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
     //right node
     virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
-    
 }
