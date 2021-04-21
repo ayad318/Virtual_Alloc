@@ -14,7 +14,7 @@ struct node{
 
     void *mem_block;
     int size;
-    //int min_size;
+    int min_size;
 
     int index;
     struct node *parent;
@@ -36,7 +36,10 @@ int state(struct node *nd){
 }
 
 //logarithmic base 2
-int log_two(int x) { 
+int log_two(int x) {
+    if(x%2 == 0){
+        return (log(x) / log(2)) - 1;
+    } 
     return log(x) / log(2); 
 } 
 
@@ -117,7 +120,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
 
     block->mem_block = heapstart + sizeof(struct node)*max_num_of_nodes;
     block->size = pow(2,initial_size);
-    //block->min_size = pow(2,min_size);
+    block->min_size = pow(2,min_size);
 
     block->index = 0;
     block->parent = NULL;
@@ -157,11 +160,21 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         return NULL;
     }
     //get best fit size in form of 2^k where k is log2 initial size + 1
-    //int best_fit_size = pow(2,log_two(size)+1);
+    int best_fit_size = pow(2,log_two(size)+1);
     
     //best_fit_size has a minimum value for alocation
-    /*if(best_fit_size < root->min_size)
-        best_fit_size = root->min_size;*/
+    if(best_fit_size < root->min_size)
+        best_fit_size = root->min_size;
+    
+    for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
+        struct node* nd = root + i;
+        if(nd->size == best_fit_size){
+            if(nd->state == FREE){
+                nd->state == ALLOCATED;
+                return nd->mem_block;
+            }
+        }
+    }
     return NULL;
 }
 
