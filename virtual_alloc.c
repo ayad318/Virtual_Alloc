@@ -170,7 +170,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         struct node* nd = root + i;
         if(nd->size == best_fit_size){
             if(nd->state == FREE){
-                nd->state == ALLOCATED;
+                nd->state = ALLOCATED;
                 return nd->mem_block;
             }
         }
