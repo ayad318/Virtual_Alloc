@@ -46,9 +46,9 @@ int size(struct node *nd){
 }
 
 //node index function
-int index(struct node *nd){
+/*int index(struct node *nd){
     return nd->index;
-}
+}*/
 
 //return 0 if not external and 1 if is external note: external if children state is NONE
 int isexternal(struct node *nd){
@@ -89,28 +89,27 @@ struct node *parent(struct node *nd){
 
 //return buddy
 struct node *buddy(struct node *nd){
-    if(isroot(nd))
-        return NULL;
-    
+
     if(right(parent(nd))== nd)
         return left(parent(nd));
     
     if(left(parent(nd))== nd)
         return right(parent(nd));
     
+    return NULL;
 }
 
 //search node for size value k and return the left most if not found return null
-struct node *search(){
+//struct node *search(){
 
-}
+//}
 
 
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
     int position = virtual_sbrk(0) - heapstart;
-    int max_num_of_nodes = 2^(initial_size - min_size + 1) - 1;
+    int max_num_of_nodes = ((2^(initial_size - min_size + 1)) - 1);
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
 
     struct node* block = (struct node*) heapstart;
@@ -121,7 +120,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     //block->min_size = pow(2,min_size);
 
     block->index = 0;
-    block->parent == NULL;
+    block->parent = NULL;
     block->left = (struct node*) heapstart + 2*block->index + 1;
     block->right = (struct node*) heapstart + 2*block->index + 2;
 
@@ -157,13 +156,12 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         return NULL;
     }
     //get best fit size in form of 2^k where k is log2 initial size + 1
-    int best_fit_size = pow(2,log_two(size)+1);
+    //int best_fit_size = pow(2,log_two(size)+1);
     
     //best_fit_size has a minimum value for alocation
     /*if(best_fit_size < root->min_size)
-        best_fit_size = root->min_size;
-
-    return NULL;*/
+        best_fit_size = root->min_size;*/
+    return NULL;
 }
 
 int virtual_free(void * heapstart, void * ptr) {
