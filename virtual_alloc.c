@@ -157,7 +157,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         return NULL;
     }
     //get best fit size in form of 2^k where k is log2 initial size + 1
-    int best_fit_size = pow(2,log_two(size)+1);
+    int best_fit_size = pow(2,ceil(log2(size)));
     
     //best_fit_size has a minimum value for alocation
     if(best_fit_size < root->min_size)
