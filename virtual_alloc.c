@@ -194,8 +194,8 @@ void virtual_info(void * heapstart) {
         printf("allocated %d\n",block->size);
     }
     //left node
-    virtual_info(heapstart + (2*index + 1));
+    virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
     //right node
-    virtual_info(heapstart + (2*index + 2));
+    virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
     
 }
