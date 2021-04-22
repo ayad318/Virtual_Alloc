@@ -109,19 +109,36 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
         //struct node nd = nds[i];
         //printf("%p\n",nd);
         //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
-        if(nd->state == st){
-            if(nd->size == best_fit_size){
-                //printf("hello\n");
-                //nd->state = ALLOCATED;
-                //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
-                return nd;
-            }
+        if(nd->state == st && nd->size == best_fit_size){            
+            //printf("hello\n");
+            //nd->state = ALLOCATED;
+            //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
+            return nd;
         }
     }
 
     return NULL;
 }
 
+//search a node of mem_block ptr
+struct node * search_mem(void * heapstart, void * ptr, enum STATE st){
+
+    if(heapstart == NULL){
+        return NULL;
+    }
+
+    struct node* root = (struct node*) heapstart;
+
+    //search for node with our memery block ptr
+    for(int i = 0 ; i < pow(2,log2(root->size) - log2(root->min_size) + 1) - 1; i++){
+        
+        struct node* nd = (struct node*) heapstart + i;
+        if(nd->state == st && nd->mem_block == ptr){
+            return nd;
+        }
+    }
+    return NULL;
+}
 //split funtion split a node allocate left child and free right child and return the left child
 struct node *split(struct node *nd){
     if(nd == NULL ||nd->left == NULL||nd->right == NULL){
@@ -247,8 +264,26 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
 }
 
 int virtual_free(void * heapstart, void * ptr) {
-    // Your code here
-    return 1;
+    if(heapstart == NULL || ptr == NULL){
+        return 1;
+    }
+    struct node *nd = search_mem(heapstart,ptr,ALLOCATED);
+    if(nd == NULL){
+        return 1;
+    }
+    nd->state = FREE;
+    int find_alloc_buddy = 0;
+    while(nd->parent != NULL ){
+        nd = nd->parent;
+        if(nd->left->state == FREE &&nd->right->state == FREE ){
+            nd->left->state = NONE;
+            nd->right->state = NONE;
+            nd->state=FREE;
+        }else{
+            return 0;
+        }
+    }
+    return 0;
 }
 
 void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
