@@ -188,16 +188,18 @@ void virtual_info(void * heapstart) {
     int index = block->index;
     if(block->state == SPLIT){
         //left node
-        virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
+        void *left = heapstart + sizeof(struct node)*(2*index + 1);
+        virtual_info(left);
         //right node
         virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
-        //left node
-        virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
+        void *left = heapstart + sizeof(struct node)*(2*index + 1);
+        printf("%p %p",block , left);
+        virtual_info(left);
         //right node
-        virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
+        virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
     }
 
     if(block->state == ALLOCATED){
