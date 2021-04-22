@@ -130,7 +130,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->left = (struct node*) heapstart + (2*i + 1);
         //printf("%p\n",block->left);
         block->left->parent = block;
-        block->left->index = 2*i + 1;
+        block->left->index = 2*block->index + 1;
         block->left->mem_block = block->mem_block;
         //block->left->min_size = block->min_size;
         block->left->size = (block->size)/2;
@@ -139,7 +139,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->right = (struct node*) heapstart + (2*i + 2);
         //printf("%p\n",block->right);
         block->right->parent = block;
-        block->right->index = 2*i + 2;
+        block->right->index = 2*block->index + 2;
         block->right->mem_block = block->mem_block + (block->size)/2;;
         //block->right->min_size = block->min_size;
         block->right->size = (block->size)/2;
