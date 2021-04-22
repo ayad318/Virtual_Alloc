@@ -69,7 +69,7 @@ struct node *left(struct node *nd){
 
 
 //return buddy
-struct node *buddy(struct node *nd){
+/*struct node *buddy(struct node *nd){
 
     if(right(parent(nd)== nd))
         return left(parent(nd));
@@ -78,7 +78,7 @@ struct node *buddy(struct node *nd){
         return right(parent(nd));
     
     return NULL;
-}
+}*/
 
 //search node for size value k and return the left most if not found return null
 struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
@@ -276,7 +276,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         return virtual_malloc(heapstart,size);
     }else if(size == 0){
         int res = virtual_free(heapstart,ptr);
-        if(res = 1){
+        if(res == 1){
             return NULL;
         }else{
             return ptr;
