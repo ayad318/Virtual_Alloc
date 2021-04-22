@@ -253,7 +253,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
 void virtual_info(void * heapstart) {
     struct node* block = (struct node*) heapstart;
     int index = block->index;
-    printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
+    //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
     if(block->state == SPLIT){
         //left node
         virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
