@@ -220,11 +220,12 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         }
         bigger_size *= 2;
     }
-    
-    while(srch_res!=NULL){
-        srch_res = split(srch_res);
-        srch_res->state = ALLOCATED;
-        if(srch_res->size == best_fit_size){
+    struct node* left_child = srch_res;
+    printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
+    while(left_child!=NULL){
+        left_child = split(srch_res);
+        if(left_child->size == best_fit_size){
+            left_child->state = ALLOCATED;
             return srch_res->mem_block;
         }
     }
