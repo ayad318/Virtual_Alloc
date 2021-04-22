@@ -122,8 +122,8 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
 
     //create child for every node except leafs
     for(int i = 0; i < ((2^(initial_size - min_size )) - 1); i ++){
-        struct node* block = (struct node*) heapstart + i;
-
+        struct node* block = (struct node*) heapstart + (sizeof(struct node)*i);
+        printf("%p",block);
         block->left = (struct node*) heapstart + (sizeof(struct node)*(2*i + 1));
         block->left->parent = block;
         block->left->index = 2*i + 1;
@@ -196,7 +196,7 @@ void virtual_info(void * heapstart) {
     if(block->state == FREE){
         printf("free %d\n",block->size);
         void *left = heapstart + sizeof(struct node)*(2*index + 1);
-        printf("%p %p",block , left);
+        printf("%p %p\n",block , left);
         virtual_info(left);
         //right node
         virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
