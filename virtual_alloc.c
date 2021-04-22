@@ -254,20 +254,10 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
 }
 
 void virtual_info(void * heapstart) {
-    struct node* root = (struct node*) heapstart;
-    //int index = block->index;
-    for(int i = 0 ; i < pow(2,log2(root->size) - log2(root->min_size) + 1) - 1; i++){
-        struct node* nd = (struct node*) heapstart + i;
-        if(nd->state == FREE){
-            printf("free %d\n",nd->size);
-        }
-
-        if(nd->state == ALLOCATED){
-            printf("allocated %d\n",nd->size);
-        }
-    }
-    //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
-    /*if(block->state == SPLIT){
+    struct node* block = (struct node*) heapstart;
+    int index = block->index;
+    printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
+    if(block->state == SPLIT){
         //left node
         virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
         //right node
@@ -280,7 +270,7 @@ void virtual_info(void * heapstart) {
     if(block->state == ALLOCATED){
         printf("allocated %d\n",block->size);
     }
-    if(block->state == NONE){
+    /*if(block->state == NONE){
         printf("none %d\n",block->size);
         //left node
         //virtual_info(heapstart + (2*index + 1));
