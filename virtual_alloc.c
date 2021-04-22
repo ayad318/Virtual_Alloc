@@ -145,7 +145,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->right->size = (block->size)/2;
         block->right->state = NONE;
 
-        //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
+        printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
 
     }
 }
@@ -174,12 +174,12 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         struct node* nd = (struct node*) heapstart + i;
         //struct node nd = nds[i];
         printf("%p\n",nd);
-        printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->state,nd->size, best_fit_size, nd->state);
+        printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
         if(nd->state == FREE){
             if(nd->size == best_fit_size){
                 printf("hello\n");
                 nd->state = ALLOCATED;
-                printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->state,nd->size, best_fit_size, nd->state);
+                printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
                 return nd->mem_block;
             }
         }
