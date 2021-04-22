@@ -11,11 +11,11 @@ enum STATE {NONE, FREE , ALLOCATED, SPLIT};
 struct node{
     
     enum STATE state;
-    
+
     int size;
     int min_size;
 
-    int index;
+    unsigned char index;
     struct node *parent;
     struct node *left;
     struct node *right;
