@@ -168,7 +168,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     
 
 
-    printf("%d\n",pow(2,root->size - root->min_size + 1) - 1);
+    printf("%f\n",pow(2,root->size - root->min_size + 1) - 1);
     for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
         
         struct node* nd = (struct node*) heapstart + i;
