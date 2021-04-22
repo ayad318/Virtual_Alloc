@@ -123,7 +123,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     //printf("%p\n",block->right);
     //printf("hello\n");
     //create child for every node except leafs
-    for(int i = 0; i < (pow(2,3))-1; i ++){
+    for(int i = 0; i < (pow(2,initial_size - min_size))-1; i ++){
         //printf("hello\n");
         struct node* block = (struct node*) heapstart + i;
         //printf("%p\n",block);
@@ -165,16 +165,20 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     
 
 
+    struct node* nd = (struct node*) heapstart;
 
-    /*for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
-        struct node* nd = (struct node*) heapstart + i;
+    for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
+        
+        //struct node* nd = (struct node*) heapstart + i;
+        nd[i];
+        printf("%p",nd);
         if(nd->state == FREE){
             if(nd->size == best_fit_size){
                 nd->state = ALLOCATED;
                 return nd->mem_block;
             }
         }
-    }*/
+    }
     return NULL;
 }
 
