@@ -179,6 +179,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
             if(nd.size == best_fit_size){
                 printf("hello\n");
                 nd.state = ALLOCATED;
+                printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd.state,nd.size, best_fit_size, nd.state);
                 return nd.mem_block;
             }
         }
