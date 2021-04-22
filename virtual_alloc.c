@@ -103,6 +103,7 @@ struct node *buddy(struct node *nd){
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
+    printf("hello");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((2^(initial_size - min_size + 1)) - 1);
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
@@ -208,8 +209,8 @@ void virtual_info(void * heapstart) {
     if(block->state == NONE){
         printf("none %d\n",block->size);
         //left node
-        virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
+        //virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
         //right node
-        virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
+        //virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
     }
 }
