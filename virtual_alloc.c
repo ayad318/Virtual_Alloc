@@ -139,10 +139,10 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     //printf("hello\n");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((pow(2,initial_size - min_size + 1))-1);
-    printf("position:%d\n max num of node: %d\n intial size:%d\n min size: %d\n",position,max_num_of_nodes,initial_size, min_size);
+    //printf("position:%d\n max num of node: %d\n intial size:%d\n min size: %d\n",position,max_num_of_nodes,initial_size, min_size);
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
     int new_position = virtual_sbrk(0) - heapstart;
-    printf("new position %d",new_position);
+    //printf("new position %d",new_position);
     struct node* block = (struct node*) heapstart;
     block->state = FREE;
 
@@ -184,7 +184,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->right->left = NULL;
         block->right->right = NULL;
 
-        printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
+        //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
 
     }
 }
