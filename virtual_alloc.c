@@ -174,10 +174,10 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         
         //struct node* nd = (struct node*) heapstart + i;
         struct node nd = nds[i];
-        //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",i,nd.size, best_fit_size, nd.state);
+        printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd.state,nd.size, best_fit_size, nd.state);
         if(nd.state == FREE){
             if(nd.size == best_fit_size){
-
+                printf("hello\n");
                 nd.state = ALLOCATED;
                 return nd.mem_block;
             }
