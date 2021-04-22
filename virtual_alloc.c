@@ -167,6 +167,8 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         //block->left->min_size = block->min_size;
         block->left->size = (block->size)/2;
         block->left->state = NONE;
+        block->left->left == NULL;
+        block->left->right == NULL;
         
         block->right = (struct node*) heapstart + (2*i + 2);
         //printf("%p\n",block->right);
@@ -176,6 +178,8 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         //block->right->min_size = block->min_size;
         block->right->size = (block->size)/2;
         block->right->state = NONE;
+        block->right->left == NULL;
+        block->right->right == NULL;
 
         //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
 
@@ -224,9 +228,11 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
     while(left_child!=NULL){
         left_child = split(srch_res);
+        printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
         if(left_child->size == best_fit_size){
             left_child->state = ALLOCATED;
-            return srch_res->mem_block;
+            printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
+            return left_child->mem_block;
         }
     }
 
