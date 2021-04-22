@@ -130,6 +130,7 @@ struct node *split(struct node *nd){
     nd->state = SPLIT;
     nd->left->state = FREE;
     nd->right->state = FREE;
+    printf("node size: %d\nleft size: %d\n right size: %d\n",nd->size,nd->left->size,nd->right->size);
     return nd->left;
 }
 
