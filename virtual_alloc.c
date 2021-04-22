@@ -272,7 +272,6 @@ int virtual_free(void * heapstart, void * ptr) {
         return 1;
     }
     nd->state = FREE;
-    int find_alloc_buddy = 0;
     while(nd->parent != NULL ){
         nd = nd->parent;
         if(nd->left->state == FREE &&nd->right->state == FREE ){
