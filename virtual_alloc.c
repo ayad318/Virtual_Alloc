@@ -22,6 +22,7 @@ struct node{
     void *mem_block;
 };
 
+
 //return 1 if node is free 2 if split and 3 if allocated else return 0
 int state(struct node *nd){
     if(nd->state == FREE){
@@ -35,18 +36,9 @@ int state(struct node *nd){
     }
 }
 
-//node size function
-int size(struct node *nd){
-    return nd->size;
-}
-
-//node index function
-/*int index(struct node *nd){
-    return nd->index;
-}*/
 
 //return 0 if not external and 1 if is external note: external if children state is NONE
-/*int isexternal(struct node *nd){
+int isexternal(struct node *nd){
     if(nd->left == NULL && nd->right == NULL)
         return 1;
     return 0;
@@ -63,7 +55,7 @@ int isroot(struct node *nd){
 struct node *right(struct node *nd){
     if(isexternal(nd))
         return NULL;
-    
+
     return nd->right;
 }
 
@@ -75,24 +67,18 @@ struct node *left(struct node *nd){
     return nd->left;
 }
 
-//return parent
-struct node *parent(struct node *nd){
-    if(isroot(nd))
-        return NULL;
-    return nd->parent;
-}
 
 //return buddy
 struct node *buddy(struct node *nd){
 
-    if(right(parent(nd))== nd)
+    if(right(parent(nd)== nd))
         return left(parent(nd));
     
     if(left(parent(nd))== nd)
         return right(parent(nd));
     
     return NULL;
-}*/
+}
 
 //search node for size value k and return the left most if not found return null
 struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
@@ -152,7 +138,7 @@ struct node *split(struct node *nd){
 }
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
-    //printf("size of struct: %lu\n",sizeof(struct node));
+    printf("size of struct: %lu\n",sizeof(struct node));
     //printf("hello\n");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((pow(2,initial_size - min_size + 1))-1);
@@ -286,7 +272,16 @@ int virtual_free(void * heapstart, void * ptr) {
 }
 
 void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
-    // Your code here
+    if(ptr == NULL){
+        return virtual_malloc(heapstart,size);
+    }else if(size == 0){
+        int res = virtual_free(heapstart,ptr);
+        if(res = 1){
+            return NULL;
+        }else{
+            return ptr;
+        }
+    }
     return NULL;
 }
 
