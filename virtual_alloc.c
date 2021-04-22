@@ -15,7 +15,7 @@ struct node{
     int size;
     int min_size;
 
-    unsigned char index;
+    int index;
     struct node *parent;
     struct node *left;
     struct node *right;
