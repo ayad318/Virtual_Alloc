@@ -35,11 +35,6 @@ int state(struct node *nd){
     }
 }
 
-//logarithmic base 2
-int log_two(int x) {
-    return log(x) / log(2);
-} 
-
 //node size function
 int size(struct node *nd){
     return nd->size;
@@ -126,10 +121,10 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
 
     //create child for every node except leafs
-    /*for(int i = 0; i < ((2^(initial_size - min_size )) - 1); i ++){
+    for(int i = 0; i < ((2^(initial_size - min_size )) - 1); i ++){
         struct node* block = (struct node*) heapstart + i;
 
-        block->left = (struct node*) heapstart + 2*i + 1;
+        block->left = (struct node*) heapstart + (sizeof(struct node)*(2*i + 1));
         block->left->parent = block;
         block->left->index = 2*i + 1;
         block->left->mem_block = block->mem_block;
@@ -137,14 +132,14 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->left->size = (block->size)/2;
         block->left->state = NONE;
         
-        block->right = (struct node*) heapstart + 2*i + 2;
+        block->right = (struct node*) heapstart + (sizeof(struct node)*(2*i + 2));
         block->right->parent = block;
         block->right->index = 2*i + 2;
         block->right->mem_block = block->mem_block + (block->size)/2;;
         //block->right->min_size = block->min_size;
         block->right->size = (block->size)/2;
         block->right->state = NONE;
-    }*/
+    }
 }
 
 void * virtual_malloc(void * heapstart, uint32_t size) {
@@ -162,7 +157,8 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     //best_fit_size has a minimum value for alocation
     if(best_fit_size < root->min_size)
         best_fit_size = root->min_size;
-    printf("%d  %d   %d   %d\n",best_fit_size,root->size,root->min_size,size);
+    
+
 
 
     /*for(int i = 0 ; i < pow(2,root->size - root->min_size + 1) - 1; i++){
@@ -198,6 +194,10 @@ void virtual_info(void * heapstart) {
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
+        //left node
+        virtual_info(heapstart + sizeof(struct node)*(2*index + 1));
+        //right node
+        virtual_info(heapstart + sizeof(struct node)*(2*index + 2));
     }
 
     if(block->state == ALLOCATED){
