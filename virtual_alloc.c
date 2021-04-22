@@ -228,9 +228,11 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
     while(left_child!=NULL){
         left_child = split(srch_res);
+        printf("before if\n");
         printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
         if(left_child->size == best_fit_size){
             left_child->state = ALLOCATED;
+            printf("hello\n");
             printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
             return left_child->mem_block;
         }
