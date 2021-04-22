@@ -102,8 +102,8 @@ struct node *buddy(struct node *nd){
 
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
-    printf("size of struct: %lu\n",sizeof(struct node));
-    printf("hello\n");
+    //printf("size of struct: %lu\n",sizeof(struct node));
+    //printf("hello\n");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((2^(initial_size - min_size + 1)) - 1);
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
@@ -119,16 +119,16 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     block->parent = NULL;
     block->left = (struct node*) heapstart + 2*block->index + 1;
     block->right = (struct node*) heapstart + 2*block->index + 2;
-    printf("%p\n",block->left);
-    printf("%p\n",block->right);
-    printf("hello\n");
+    //printf("%p\n",block->left);
+    //printf("%p\n",block->right);
+    //printf("hello\n");
     //create child for every node except leafs
     for(int i = 0; i < (pow(2,3))-1; i ++){
-        printf("hello\n");
+        //printf("hello\n");
         struct node* block = (struct node*) heapstart + i;
-        printf("%p\n",block);
+        //printf("%p\n",block);
         block->left = (struct node*) heapstart + (2*i + 1);
-        printf("%p\n",block->left);
+        //printf("%p\n",block->left);
         block->left->parent = block;
         block->left->index = 2*i + 1;
         block->left->mem_block = block->mem_block;
@@ -137,7 +137,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->left->state = NONE;
         
         block->right = (struct node*) heapstart + (2*i + 2);
-        printf("%p\n",block->right);
+        //printf("%p\n",block->right);
         block->right->parent = block;
         block->right->index = 2*i + 2;
         block->right->mem_block = block->mem_block + (block->size)/2;;
@@ -193,28 +193,22 @@ void virtual_info(void * heapstart) {
     int index = block->index;
     if(block->state == SPLIT){
         //left node
-        void *left = heapstart + (sizeof(struct node)*(2*index + 1));
-        virtual_info(left);
+        virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
         //right node
         virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
-        void *left = heapstart + (sizeof(struct node)*(2*index + 1));
-        printf("%p %p\n",block , left);
-        virtual_info(left);
-        //right node
-        virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
     }
 
     if(block->state == ALLOCATED){
         printf("allocated %d\n",block->size);
     }
-    if(block->state == NONE){
+    /*if(block->state == NONE){
         printf("none %d\n",block->size);
         //left node
         //virtual_info(heapstart + (2*index + 1));
         //right node
         //virtual_info(heapstart + (2*index + 2));
-    }
+    }*/
 }
