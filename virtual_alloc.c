@@ -124,12 +124,11 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
 
 //split funtion split a node allocate left child and free right child and return the left child
 struct node *split(struct node *nd){
-    if(nd == NULL){
+    if(nd == NULL ||nd->left == NULL||nd->right == NULL){
         return NULL;
     }
-
     nd->state = SPLIT;
-    nd->left->state = ALLOCATED;
+    nd->left->state = FREE;
     nd->right->state = FREE;
     return nd->left;
 }
@@ -221,11 +220,11 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         }
         bigger_size *= 2;
     }
-    int alloc = 0;
-    while(alloc == 0){
+    
+    while(srch_res!=NULL){
         srch_res = split(srch_res);
+        srch_res->state = ALLOCATED;
         if(srch_res->size == best_fit_size){
-            alloc = 1;
             return srch_res->mem_block;
         }
     }
