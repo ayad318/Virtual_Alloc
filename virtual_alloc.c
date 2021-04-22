@@ -182,7 +182,7 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         block->right->left = NULL;
         block->right->right = NULL;
 
-        //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
+        printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
 
     }
 }
