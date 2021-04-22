@@ -11,8 +11,7 @@ enum STATE {NONE, FREE , ALLOCATED, SPLIT};
 struct node{
     
     enum STATE state;
-
-    void *mem_block;
+    
     int size;
     int min_size;
 
@@ -20,6 +19,7 @@ struct node{
     struct node *parent;
     struct node *left;
     struct node *right;
+    void *mem_block;
 };
 
 //return 1 if node is free 2 if split and 3 if allocated else return 0
