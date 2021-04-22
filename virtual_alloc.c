@@ -103,7 +103,7 @@ struct node *buddy(struct node *nd){
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     
-    printf("hello");
+    printf("hello\n");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((2^(initial_size - min_size + 1)) - 1);
     virtual_sbrk(sizeof(struct node)*max_num_of_nodes + pow(2,initial_size) - position);
@@ -120,9 +120,10 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     block->left = (struct node*) heapstart + 2*block->index + 1;
     block->right = (struct node*) heapstart + 2*block->index + 2;
     
-
+    printf("hello\n");
     //create child for every node except leafs
     for(int i = 0; i < ((2^(initial_size - min_size )) - 1); i ++){
+        printf("hello\n");
         struct node* block = (struct node*) heapstart + (sizeof(struct node)*i);
         printf("%p",block);
         block->left = (struct node*) heapstart + (sizeof(struct node)*(2*i + 1));
