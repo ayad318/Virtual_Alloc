@@ -255,15 +255,15 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
 
 void virtual_info(void * heapstart) {
     struct node* block = (struct node*) heapstart;
-    int index = block->index;
+    //int index = block->index;
     printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
     if(block->state == SPLIT){
         //left node
-        void* heap = (void*) block->left;
-        virtual_info(heap);
+        void* heap1 = (void*) block->left;
+        virtual_info(heap1);
         //right node
-        void* heap = (void*) block->right;
-        virtual_info(heap);
+        void* heap2 = (void*) block->right;
+        virtual_info(heap2);
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
