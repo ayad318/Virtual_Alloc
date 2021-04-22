@@ -167,8 +167,8 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         //block->left->min_size = block->min_size;
         block->left->size = (block->size)/2;
         block->left->state = NONE;
-        block->left->left == NULL;
-        block->left->right == NULL;
+        block->left->left = NULL;
+        block->left->right = NULL;
         
         block->right = (struct node*) heapstart + (2*i + 2);
         //printf("%p\n",block->right);
@@ -178,8 +178,8 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
         //block->right->min_size = block->min_size;
         block->right->size = (block->size)/2;
         block->right->state = NONE;
-        block->right->left == NULL;
-        block->right->right == NULL;
+        block->right->left = NULL;
+        block->right->right = NULL;
 
         //printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
 
