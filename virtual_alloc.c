@@ -119,14 +119,15 @@ void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     block->parent = NULL;
     block->left = (struct node*) heapstart + 2*block->index + 1;
     block->right = (struct node*) heapstart + 2*block->index + 2;
-    
+    printf("%p\n",block->left);
+    printf("%p\n",block->right);
     printf("hello\n");
     //create child for every node except leafs
     for(int i = 0; i < (pow(2,3))-1; i ++){
         printf("hello\n");
         struct node* block = (struct node*) heapstart + i;
         printf("%p\n",block);
-        block->left = (struct node*) heapstart + (sizeof(struct node)*(2*i + 1));
+        block->left = (struct node*) heapstart + (2*i + 1);
         printf("%p\n",block->left);
         block->left->parent = block;
         block->left->index = 2*i + 1;
