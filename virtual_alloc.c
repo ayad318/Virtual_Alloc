@@ -101,9 +101,6 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
         return NULL;
     }
     struct node* root = (struct node*) heapstart;
-    if((size > root->size) ||(size == 0)){
-        return NULL;
-    }
 
     //search for left most free node
     for(int i = 0 ; i < pow(2,log2(root->size) - log2(root->min_size) + 1) - 1; i++){
