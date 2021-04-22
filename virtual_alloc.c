@@ -46,11 +46,11 @@ int size(struct node *nd){
 }*/
 
 //return 0 if not external and 1 if is external note: external if children state is NONE
-int isexternal(struct node *nd){
+/*int isexternal(struct node *nd){
     if(nd->left == NULL && nd->right == NULL)
         return 1;
     return 0;
-}
+}*/
 
 //return 1 if is root else return 0
 int isroot(struct node *nd){
