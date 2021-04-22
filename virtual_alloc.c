@@ -259,9 +259,11 @@ void virtual_info(void * heapstart) {
     printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",block->index,block->size, block->state,block->left,block->right,block->mem_block);
     if(block->state == SPLIT){
         //left node
-        virtual_info(heapstart + (sizeof(struct node)*(2*index + 1)));
+        void* heap = (void*) block->left;
+        virtual_info(heap);
         //right node
-        virtual_info(heapstart + (sizeof(struct node)*(2*index + 2)));
+        void* heap = (void*) block->right;
+        virtual_info(heap);
     }
     if(block->state == FREE){
         printf("free %d\n",block->size);
