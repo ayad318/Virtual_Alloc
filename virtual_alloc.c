@@ -107,13 +107,13 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
         
         struct node* nd = (struct node*) heapstart + i;
         //struct node nd = nds[i];
-        printf("%p\n",nd);
-        printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
+        //printf("%p\n",nd);
+        //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
         if(nd->state == st){
             if(nd->size == best_fit_size){
                 //printf("hello\n");
                 //nd->state = ALLOCATED;
-                printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
+                //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
                 return nd;
             }
         }
@@ -122,7 +122,17 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
     return NULL;
 }
 
+//split funtion split a node allocate left child and free right child and return the left child
+struct node *split(struct node *nd){
+    if(nd == NULL){
+        return NULL;
+    }
 
+    nd->state = SPLIT;
+    nd->left->state = ALLOCATED;
+    nd->right->state = FREE;
+    return nd->left;
+}
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
     //printf("size of struct: %lu\n",sizeof(struct node));
@@ -189,29 +199,36 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     if(best_fit_size < root->min_size)
         best_fit_size = root->min_size;
     
-
+    //search for left most free node
     struct node *srch_res = search(heapstart,best_fit_size,FREE);
     if(srch_res != NULL){
         srch_res->state = ALLOCATED;
         return srch_res->mem_block;
     }
 
-    //search for left most free node
-    /*for(int i = 0 ; i < pow(2,log2(root->size) - log2(root->min_size) + 1) - 1; i++){
-        
-        struct node* nd = (struct node*) heapstart + i;
-        //struct node nd = nds[i];
-        //printf("%p\n",nd);
-        //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
-        if(nd->state == FREE){
-            if(nd->size == best_fit_size){
-                //printf("hello\n");
-                nd->state = ALLOCATED;
-                //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
-                return nd->mem_block;
-            }
+    //search for the smallest free block
+    int bigger_size = best_fit_size*2;
+    int found = 0;
+    while(found == 0){
+        srch_res = (heapstart,bigger_size,FREE);
+        if(srch_res != NULL){
+            found = 1;
         }
-    }*/
+        bigger_size *= 2;
+
+        //cannot find free memry blcok
+        if(bigger_size > root->size){
+            return NULL;
+        }
+    }
+    int alloc = 0;
+    while(alloc == 0){
+        srch_res = split(srch_res);
+        if(srch_res->size == best_fit_size){
+            alloc = 1;
+            return srch_res->mem_block;
+        }
+    }
 
 
     return NULL;
