@@ -210,7 +210,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     int bigger_size = best_fit_size*2;
     int found = 0;
     while(found == 0){
-        srch_res = (heapstart,bigger_size,FREE);
+        srch_res = search(heapstart,bigger_size,FREE);
         if(srch_res != NULL){
             found = 1;
         }
