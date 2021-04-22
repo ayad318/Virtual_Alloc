@@ -8,9 +8,7 @@ void * virtual_heap = NULL;
 
 void * virtual_sbrk(int32_t increment) {
     // Your implementation here (for your testing only)
-    void * sbrk = virtual_heap;
-    void *sbrk = sbrk + increment;
-    return (void *)(-1);
+    return sbrk(increment);
 }
 
 int main() {
