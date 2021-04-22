@@ -228,7 +228,7 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
     struct node* left_child = srch_res;
     printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
     while(left_child!=NULL){
-        left_child = split(srch_res);
+        left_child = split(left_child);
         printf("best fit size = %d, child size %d\n",best_fit_size,left_child->size);
         printf("index=%d, size=%d, state=%d\n left=%p, right=%p\n mem_block=%p\n",left_child->index,left_child->size, left_child->state,left_child->left,left_child->right,left_child->mem_block);
         if(left_child->size == best_fit_size){
