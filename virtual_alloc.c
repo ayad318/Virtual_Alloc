@@ -107,13 +107,13 @@ struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
         
         struct node* nd = (struct node*) heapstart + i;
         //struct node nd = nds[i];
-        //printf("%p\n",nd);
-        //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
+        printf("%p\n",nd);
+        printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
         if(nd->state == st){
             if(nd->size == best_fit_size){
                 //printf("hello\n");
                 //nd->state = ALLOCATED;
-                //printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
+                printf("index=%d, size=%d, best_fit_size=%d, state=%d\n",nd->index,nd->size, best_fit_size, nd->state);
                 return nd;
             }
         }
