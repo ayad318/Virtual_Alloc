@@ -138,7 +138,7 @@ struct node *split(struct node *nd){
 }
 
 void init_allocator(void * heapstart, uint8_t initial_size, uint8_t min_size) {
-    printf("size of struct: %lu\n",sizeof(struct node));
+    //printf("size of struct: %lu\n",sizeof(struct node));
     //printf("hello\n");
     int position = virtual_sbrk(0) - heapstart;
     int max_num_of_nodes = ((pow(2,initial_size - min_size + 1))-1);
