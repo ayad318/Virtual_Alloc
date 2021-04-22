@@ -214,12 +214,12 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
         if(srch_res != NULL){
             found = 1;
         }
-        bigger_size *= 2;
 
         //cannot find free memry blcok
         if(bigger_size > root->size){
             return NULL;
         }
+        bigger_size *= 2;
     }
     int alloc = 0;
     while(alloc == 0){
