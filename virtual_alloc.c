@@ -50,7 +50,7 @@ int size(struct node *nd){
     if(nd->left == NULL && nd->right == NULL)
         return 1;
     return 0;
-}*/
+}
 
 //return 1 if is root else return 0
 int isroot(struct node *nd){
@@ -92,7 +92,7 @@ struct node *buddy(struct node *nd){
         return right(parent(nd));
     
     return NULL;
-}
+}*/
 
 //search node for size value k and return the left most if not found return null
 struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
