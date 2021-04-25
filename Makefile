@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-fsanitize=address -Wall -Werror -std=gnu11 -g -lm
+CFLAGS=-fsanitize=address -Wall -Werror -std=gnu11 -g -lm -Wno-deprecated-declarations
 TARGET=virtual_alloc
 
 .PHONY: clean
@@ -15,4 +15,4 @@ clean:
 	rm -f *.o
 
 run_tests:
-	$(CC) $(CC) $(CFLAGS) $^ -o $@
+	./tests

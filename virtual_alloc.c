@@ -293,7 +293,9 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     }
 
     struct node* root = (struct node*) heapstart;
-
+    if(size > root->size){
+        return NULL;
+    }
     int best_fit_size = pow(2,ceil(log2(size)));
     
     //best_fit_size has a minimum value for alocation

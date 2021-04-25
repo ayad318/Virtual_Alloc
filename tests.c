@@ -15,6 +15,10 @@ void * virtual_sbrk(int32_t increment) {
 int main() {
     // Your own testing code here
     virtual_heap = malloc(1000);
-    init_allocator(virtual_heap, 15, 12);
+    //redirect our to temp file
+    freopen("test1.out","w",stdout);
+    init_allocator(virtual_heap,15,12);
+    virtual_info(virtual_heap);
+    freopen("test1.out","w",stdout);
     free(virtual_heap);
 }
