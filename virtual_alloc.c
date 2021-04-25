@@ -302,8 +302,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         //allocate old undo virual free
         return NULL;
     }
-    memcpy(newptr,ptr,size);
-    return newptr;
+    return memcpy(newptr,ptr,size);;
 }
 
 void virtual_info(void * heapstart) {
