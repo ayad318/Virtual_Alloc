@@ -320,7 +320,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     if(ptr == newptr){
         return ptr;
     }
-    memcpy(newptr,ptr,size);
+    memcpy(newptr,ptr,best_fit_size);
     return newptr;
 }
 
