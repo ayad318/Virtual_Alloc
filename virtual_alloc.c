@@ -299,7 +299,22 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         return NULL;
     }
     if(newptr == NULL){
-        //allocate old undo virual free
+        //undo free
+        struct node *freed_node = search_mem(heapstart,ptr,FREE);
+        if(freed_node == NULL){
+            freed_node = search_mem(heapstart,ptr,NONE);
+        }
+        if(freed_node == FREE){
+            freed_node = ALLOCATED;
+        }else if(freed_node == NONE){
+            struct node *nd = freed_node->parent;
+            while(nd->state == FREE || nd->state == NONE){
+                split(nd);
+                nd->left->state = SPLIT;
+                nd = nd->parent;
+            }
+            freed_node->state = ALLOCATED;
+        }
         return NULL;
     }
     return memcpy(newptr,ptr,size);;
