@@ -317,6 +317,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         }
         return NULL;
     }
+    bcopy(newptr,ptr,size);
     return newptr;
 }
 
