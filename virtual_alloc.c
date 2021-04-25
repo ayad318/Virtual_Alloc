@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 enum STATE {NONE, FREE , ALLOCATED, SPLIT};
 
@@ -282,7 +283,24 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
             return ptr;
         }
     }
-    //struct node* block = (struct node*) heapstart;
+
+    struct node* root = (struct node*) heapstart;
+
+    int best_fit_size = pow(2,ceil(log2(size)));
+    
+    //best_fit_size has a minimum value for alocation
+    if(best_fit_size < root->min_size)
+        best_fit_size = root->min_size;
+
+    void *newptr = NULL;
+    if(virtual_free(heapstart,ptr) == 0)
+        newptr = virtual_malloc(heapstart,size);
+    
+    if(newptr == NULL){
+        //allocate old undo virual free
+        return NULL;
+    }
+    memcpy(newptr,ptr,size);
     return NULL;
 }
 
