@@ -282,7 +282,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
             return ptr;
         }
     }
-    struct node* block = (struct node*) heapstart;
+    //struct node* block = (struct node*) heapstart;
     return NULL;
 }
 
