@@ -301,7 +301,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     if(newptr == NULL){
         //undo free
         struct node *freed_node = search_mem(heapstart,ptr,FREE);
-        if(freed_node->state == NULL){
+        if(freed_node == NULL){
             freed_node = search_mem(heapstart,ptr,NONE);
         }
         if(freed_node->state == FREE){
