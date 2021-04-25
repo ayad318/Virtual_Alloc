@@ -301,12 +301,12 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     if(newptr == NULL){
         //undo free
         struct node *freed_node = search_mem(heapstart,ptr,FREE);
-        if(freed_node == NULL){
+        if(freed_node->state == NULL){
             freed_node = search_mem(heapstart,ptr,NONE);
         }
-        if(freed_node == FREE){
-            freed_node = ALLOCATED;
-        }else if(freed_node == NONE){
+        if(freed_node->state == FREE){
+            freed_node->state = ALLOCATED;
+        }else if(freed_node->state == NONE){
             struct node *nd = freed_node->parent;
             while(nd->state == FREE || nd->state == NONE){
                 split(nd);
