@@ -17,5 +17,4 @@ int main() {
     virtual_heap = malloc(1000);
     init_allocator(virtual_heap, 15, 12);
     free(virtual_heap);
-
 }
