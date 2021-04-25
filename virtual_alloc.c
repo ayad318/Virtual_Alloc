@@ -23,6 +23,12 @@ struct node{
     void *mem_block;
 };
 
+// took from https://stackoverflow.com/questions/13095488/how-to-implement-overlap-checking-memcpy-in-c
+int overlap_p(void *a, void *b, size_t n)
+{
+    char *x = a, *y =  b;
+    return (x<=y && x+n>y) || (y<=x && y+n>x);
+}
 
 //return 1 if node is free 2 if split and 3 if allocated else return 0
 int state(struct node *nd){
@@ -319,6 +325,9 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     }
     if(ptr == newptr){
         return ptr;
+    }
+    if(overlap_p(newptr,ptr,size)){
+        return newptr;
     }
     memcpy(newptr,ptr,best_fit_size);
     return newptr;
