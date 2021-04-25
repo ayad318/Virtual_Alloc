@@ -258,15 +258,19 @@ void * virtual_malloc(void * heapstart, uint32_t size) {
 
 int virtual_free(void * heapstart, void * ptr) {
     if(heapstart == NULL || ptr == NULL){
-        printf("here 1\n");
         return 1;
     }
-    struct node *nd = search_mem(heapstart,ptr,ALLOCATED);
-    if(nd == NULL){
+    struct node *nd = search_mem(heapstart,ptr,FREE);
+    if(nd != NULL){
         printf("here2\n");
+        return 0;
+    }
+    nd = search_mem(heapstart,ptr,ALLOCATED);
+    nd->state = FREE;
+    if(nd == NULL){
+        printf("here3\n");
         return 1;
     }
-    nd->state = FREE;
     while(nd->parent != NULL ){
         nd = nd->parent;
         if(nd->left->state == FREE &&nd->right->state == FREE ){
