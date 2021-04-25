@@ -293,9 +293,11 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         best_fit_size = root->min_size;
 
     void *newptr = NULL;
-    if(virtual_free(heapstart,ptr) == 0)
+    if(virtual_free(heapstart,ptr) == 0){
         newptr = virtual_malloc(heapstart,size);
-    
+    }else{
+        return NULL;
+    }
     if(newptr == NULL){
         //allocate old undo virual free
         return NULL;
