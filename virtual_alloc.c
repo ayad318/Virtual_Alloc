@@ -327,7 +327,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         return ptr;
     }
     if(overlap_p(newptr,ptr,size)){
-        bcopy(newptr,ptr,size);
+        printf("%p %p %d",newptr,ptr,size);
         return ptr;
     }
     memcpy(newptr,ptr,size);
