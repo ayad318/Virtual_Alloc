@@ -43,6 +43,10 @@ int main() {
 
     //test free
     freopen("tests_file/test_free.out","w+",stdout);
+    //check error
+    if(virtual_free(NULL, ptr0) != 1 | virtual_free(virtual_heap, NULL) != 1)
+        printf("Failed free test heapstart or ptr + NULL\n");
+
     virtual_free(virtual_heap,ptr0);
     virtual_info(virtual_heap);
     printf("test ptr0 done\n");
@@ -64,6 +68,8 @@ int main() {
     virtual_free(virtual_heap,ptr2);
     virtual_info(virtual_heap);
     printf("test ptr2 done\n");
+    if(virtual_free(virtual_heap,ptr2) != 1)
+        printf("Failed free test ptr is already free\n");
 
     free(virtual_heap);
     return 0;
