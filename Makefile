@@ -13,6 +13,16 @@ virtual_alloc.o: virtual_alloc.c
 clean:
 	rm -f $(TARGET)
 	rm -f *.o
+	rm -f tests
+	rm -f tests_file/*.out
+
 
 run_tests:
 	./tests
+	@chmod +x test.sh
+	./test.sh
+
+git:
+	git add .
+	git commit -m "submit"
+	git push

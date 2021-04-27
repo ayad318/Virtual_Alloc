@@ -1,0 +1,42 @@
+free 4096
+allocated 4096
+allocated 4096
+allocated 4096
+allocated 4096
+free 4096
+allocated 8192
+test ptr0 done
+free 4096
+allocated 4096
+allocated 4096
+allocated 4096
+allocated 4096
+free 4096
+free 8192
+test ptr5 done
+free 8192
+allocated 4096
+allocated 4096
+allocated 4096
+free 4096
+free 8192
+test ptr1 done
+free 8192
+allocated 4096
+free 4096
+allocated 4096
+free 4096
+free 8192
+test ptr3 done
+free 8192
+allocated 4096
+free 4096
+free 16384
+test ptr4 done
+free 8192
+allocated 4096
+free 4096
+free 16384
+test ptr5 done
+free 32768
+test ptr2 done

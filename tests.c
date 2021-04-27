@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include <math.h>
+
 void * virtual_heap = NULL;
 
 void * virtual_sbrk(int32_t increment) {
@@ -16,8 +18,53 @@ int main() {
     // Your own testing code here
     virtual_heap = malloc(1000);
     //redirect our to temp file
-    freopen("test.out","w",stdout);
+
+    //test init
+    freopen("tests_file/test_init.out","w+",stdout);
     init_allocator(virtual_heap,15,12);
     virtual_info(virtual_heap);
+
+    //test malloc
+    freopen("tests_file/test_malloc.out","w+",stdout);
+    void *ptr0 = virtual_malloc(virtual_heap,1);
+    void *ptr1 = virtual_malloc(virtual_heap,1);
+    void *ptr2 = virtual_malloc(virtual_heap,1);
+    void *ptr3 = virtual_malloc(virtual_heap,1);
+    void *ptr4 = virtual_malloc(virtual_heap,1);
+    void *ptr5 = virtual_malloc(virtual_heap,8192);
+    if(virtual_malloc(virtual_heap,pow(2,16)) != NULL)
+        printf("Failed malloc size > inital size\n");
+    if(virtual_malloc(NULL,pow(2,13)) != NULL)
+        printf("Failed malloc NULL pointer\n");
+    if(virtual_malloc(virtual_heap,0) != NULL)
+        printf("Failed malloc test size = 0\n");
+    virtual_info(virtual_heap);
+
+
+    //test free
+    freopen("tests_file/test_free.out","w+",stdout);
+    virtual_free(virtual_heap,ptr0);
+    virtual_info(virtual_heap);
+    printf("test ptr0 done\n");
+    virtual_free(virtual_heap,ptr5);
+    virtual_info(virtual_heap);
+    printf("test ptr5 done\n");
+    virtual_free(virtual_heap,ptr1);
+    virtual_info(virtual_heap);
+    printf("test ptr1 done\n");
+    virtual_free(virtual_heap,ptr3);
+    virtual_info(virtual_heap);
+    printf("test ptr3 done\n");
+    virtual_free(virtual_heap,ptr4);
+    virtual_info(virtual_heap);
+    printf("test ptr4 done\n");
+    virtual_free(virtual_heap,ptr5);
+    virtual_info(virtual_heap);
+    printf("test ptr5 done\n");
+    virtual_free(virtual_heap,ptr2);
+    virtual_info(virtual_heap);
+    printf("test ptr2 done\n");
+
     free(virtual_heap);
+    return 0;
 }
