@@ -71,6 +71,17 @@ int main() {
     if(virtual_free(virtual_heap,ptr2) != 1)
         printf("Failed free test ptr is already free\n");
 
+    //test realloc
+    freopen("tests_file/test_realloc.out","w+",stdout);
+    //should act as malloc
+    printf("realloc test 1\n");
+    ptr0 = virtual_realloc(virtual_heap,NULL,8192);
+    virtual_info(virtual_heap);
+    virtual_realloc(virtual_heap, virtual_heap + 48*15 + 8192, 1024);
+    printf("realloc test 2\n");
+    virtual_info(virtual_heap);
+
+    //free
     free(virtual_heap);
     return 0;
 }

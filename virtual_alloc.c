@@ -74,8 +74,6 @@ struct node *left(struct node *nd){
     return nd->left;
 }
 
-
-
 //search node for size value k and return the left most if not found return null
 struct node * search(void * heapstart, int best_fit_size, enum STATE st) {
     
@@ -260,7 +258,6 @@ int virtual_free(void * heapstart, void * ptr) {
 }
 
 void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
-    
     
     if(ptr == NULL){
         return virtual_malloc(heapstart,size);
