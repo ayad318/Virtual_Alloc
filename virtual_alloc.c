@@ -311,12 +311,11 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         return NULL;
     }
 
-    if(overlap_p(newptr,ptr,size)){
-        memcpy(newptr,ptr,best_fit_size);
+    /*if(overlap_p(newptr,ptr,size)){
+        memcpy(newptr,ptr,size);
         return newptr;
-    }
-    memcpy(newptr,ptr,best_fit_size);
-    return newptr;
+    }*/
+    return memcpy(newptr,ptr,size);
 }
 
 void virtual_info(void * heapstart) {
