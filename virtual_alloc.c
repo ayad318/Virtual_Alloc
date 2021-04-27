@@ -310,7 +310,7 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
     if(overlap_p(newptr,ptr,size)){
         return newptr;
     }
-    memcpy(newptr,ptr,size);
+    memcpy(newptr,ptr,best_fit_size);
     return newptr;
 }
 
@@ -332,11 +332,4 @@ void virtual_info(void * heapstart) {
     if(block->state == ALLOCATED){
         printf("allocated %d\n",block->size);
     }
-    /*if(block->state == NONE){
-        printf("none %d\n",block->size);
-        //left node
-        //virtual_info(heapstart + (2*index + 1));
-        //right node
-        //virtual_info(heapstart + (2*index + 2));
-    }*/
 }
