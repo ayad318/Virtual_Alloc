@@ -260,6 +260,8 @@ int virtual_free(void * heapstart, void * ptr) {
 }
 
 void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
+    
+    
     if(ptr == NULL){
         return virtual_malloc(heapstart,size);
     }else if(size == 0){
@@ -282,7 +284,9 @@ void * virtual_realloc(void * heapstart, void * ptr, uint32_t size) {
         best_fit_size = root->min_size;
 
     void *newptr = NULL;
-    if(virtual_free(heapstart,ptr) == 0){
+    
+    int nb = virtual_free(heapstart,ptr);
+    if( nb == 0){
         newptr = virtual_malloc(heapstart,size);
     }else{
         return NULL;
