@@ -77,9 +77,10 @@ int main() {
     printf("realloc test 1\n");
     ptr0 = virtual_realloc(virtual_heap,NULL,8192);
     virtual_info(virtual_heap);
-    virtual_realloc(virtual_heap, virtual_heap + 48*15 + 8192, 1024);
     printf("realloc test 2\n");
+    virtual_realloc(virtual_heap,ptr0,0);
     virtual_info(virtual_heap);
+
 
     //free
     free(virtual_heap);

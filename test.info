@@ -1,0 +1,4 @@
+first I redirect my stdout to a .out file inside the tests_file using freopen() functoin.
+I compared them with the .out files with .exp file that I wrote.
+
+testing init:
