@@ -1,4 +1,9 @@
+compile test using make tests and run test using run_tests
+
 first I redirect my stdout to a .out file inside the tests_file using freopen() functoin.
 I compared them with the .out files with .exp file that I wrote.
 
-testing init:
+first I am testing the init with 15 inital size and 12 min size
+and after that I am test the malloc giving in wrong input and som edge cases and normal cases
+and after allocating I am testing free giving in wrong input and som edge cases and normal cases
+and finally I am testing realloc giving in wrong input and som edge cases and normal cases.
